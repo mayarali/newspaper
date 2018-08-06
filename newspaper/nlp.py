@@ -124,7 +124,7 @@ def keywords(text):
     sorts them in reverse natural order (so descending) by number of
     occurrences.
     """
-    NUM_KEYWORDS = 10
+    NUM_KEYWORDS = 20
     text = split_words(text)
     # of words before removing blacklist words
     if text:
@@ -142,11 +142,13 @@ def keywords(text):
                           key=lambda x: (x[1], x[0]),
                           reverse=True)
         keywords = keywords[:min_size]
+        # print(keywords)
         keywords = dict((x, y) for x, y in keywords)
 
         for k in keywords:
             articleScore = keywords[k] * 1.0 / max(num_words, 1)
-            keywords[k] = articleScore * 1.5 + 1
+            keywords[k] = articleScore #* 1.5 + 1
+            #print(k, keywords[k])
         return dict(keywords)
     else:
         return dict()
