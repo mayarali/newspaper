@@ -28,15 +28,19 @@ def load_stopwords(language):
     # stopwords for nlp in English are not the regular stopwords
     # to pass the tests
     # can be changed with the tests
-    if language == 'en':
-        stopwordsFile = settings.NLP_STOPWORDS_EN
-    else:
+    stopwordsFile_EN = settings.NLP_STOPWORDS_EN
+    if language != 'en':
         stopwordsFile = path.join(settings.STOPWORDS_DIR,\
                                   'stopwords-{}.txt'.format(language))
 
 
+    with open(stopwordsFile_EN, 'r', encoding='utf-8') as f:
+        stopwords.update(set([w.strip() for w in f.readlines()]))
+
     with open(stopwordsFile, 'r', encoding='utf-8') as f:
         stopwords.update(set([w.strip() for w in f.readlines()]))
+
+
 
 
 def summarize(url='', title='', text='', max_sents=5):
@@ -124,7 +128,7 @@ def keywords(text):
     sorts them in reverse natural order (so descending) by number of
     occurrences.
     """
-    NUM_KEYWORDS = 20
+    NUM_KEYWORDS = 10
     text = split_words(text)
     # of words before removing blacklist words
     if text:

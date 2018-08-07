@@ -347,7 +347,7 @@ class Article(object):
         self.config.set_language(language)
         nlp.load_stopwords(self.config.get_language())
 
-        print(self.config.get_language())
+        # print(self.config.get_language())
 
         text_keyws = list(nlp.keywords(self.text).keys())
         title_keyws = list(nlp.keywords(self.title).keys())
